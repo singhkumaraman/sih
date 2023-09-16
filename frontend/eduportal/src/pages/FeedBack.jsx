@@ -20,7 +20,7 @@ const FeedBack = () => {
             className="space-y-8"
             method="POST"
           >
-            {/* <div>
+            <div>
               <label
                 for="email"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
@@ -35,7 +35,7 @@ const FeedBack = () => {
                 placeholder="name@gmail.com"
                 required
               />
-            </div> */}
+            </div>
             <div>
               <label
                 for="subject"

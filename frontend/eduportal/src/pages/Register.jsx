@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-// import { useContext } from "react";
-// import { GlobalContext } from "../Context/GlobalContext";
+import { useContext } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
 import { BsFillPersonPlusFill } from "react-icons/bs";
 import Header from "../components/Header";
@@ -12,30 +12,32 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState(""); // Added role state
-  //   const context = useContext(GlobalContext);
-  //   const signup = async (name, email, password) => {
-  //     if (name == "" || password === "" || email === "") {
-  //       alert("Please Enter all the fields");
-  //       return;
-  //     }
-  //     const response = await fetch("http://localhost:5001/api/user/register", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         name: name,
-  //         email: email,
-  //         password: password,
-  //       }),
-  //     });
-  //     if (response.status === 200) {
-  //       alert("User Created Successfully");
-  //       nav("/login");
-  //     } else {
-  //       alert("User Already Exists");
-  //     }
-  //   };
+  const context = useContext(GlobalContext);
+  const signup = async (name, email, password, role) => {
+    console.log("hello");
+    if (name == "" || password === "" || email === "" || role == "") {
+      alert("Please Enter all the fields");
+      return;
+    }
+    const response = await fetch("http://localhost:5000/api/user/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password,
+        role: role,
+      }),
+    });
+    if (response.status === 200) {
+      alert("User Created Successfully");
+      nav("/login");
+    } else {
+      alert("User Already Exists");
+    }
+  };
   const handleRoleChange = (e) => {
     setRole(e.target.value);
   };
@@ -59,9 +61,9 @@ const SignUp = () => {
               <form
                 className="space-y-4 md:space-y-6"
                 action="#"
-                //  onSubmit={() => {
-                //    context.signup(user, password, email);
-                //  }}
+                onSubmit={() => {
+                  signup(user, password, email, role);
+                }}
               >
                 <div>
                   <label
@@ -174,14 +176,6 @@ const SignUp = () => {
                         </label>
                       </div>
                     </div>
-                    {/* <div className="ml-3 text-sm">
-                      <label
-                        htmlFor="remember"
-                        className="text-gray-500 dark:text-gray-300"
-                      >
-                        Remember me
-                      </label>
-                    </div> */}
                   </div>
                 </div>
                 <button

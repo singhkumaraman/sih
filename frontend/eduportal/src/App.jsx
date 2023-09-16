@@ -7,6 +7,7 @@ import Teacher from "./pages/Teacher";
 import Student from "./pages/Student";
 import Alumni from "./pages/Alumni";
 import FeedBack from "./pages/FeedBack";
+import CourseDesign from "./pages/CourseDesign";
 const App = () => {
   return (
     <>
@@ -20,6 +21,7 @@ const App = () => {
             <Route path="/student" element={<Student />} />
             <Route path="/alumni" element={<Alumni />} />
             <Route path="/feedback" element={<FeedBack />} />
+            <Route path="/editsub" element={<CourseDesign />} />
           </Routes>
         </div>
       </Router>

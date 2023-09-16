@@ -2,6 +2,7 @@ import React from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import image from "../assets/hero.png";
+import Featured from "../components/Featured";
 const Home = () => {
   return (
     <>
@@ -46,6 +47,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <Featured className="p-10 m-5" />
       <Footer />
     </>
   );

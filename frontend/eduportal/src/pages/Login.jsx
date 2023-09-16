@@ -1,49 +1,51 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-// import { GlobalContext } from "../Context/GlobalContext";
+import { GlobalContext } from "../../context/GlobalContext";
 import { BsFillPersonCheckFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 const Login = () => {
-  //   const nav = useNavigate();
+  const nav = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //   const context = useContext(GlobalContext);
-  //   const login = async (email, password) => {
-  //     if (email === "" || password === "") {
-  //       alert("Please Enter Valid Credentials");
-  //       return;
-  //     }
-  //     const response = await fetch("http://localhost:5001/api/user/login", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         email: email,
-  //         password: password,
-  //       }),
-  //     });
-  //     if (response.status === 200) {
-  //       const data = await response.json();
-  //       const token = data.token;
-  //       localStorage.setItem("authToken", JSON.stringify(token));
-  //       localStorage.setItem("user", JSON.stringify(data.user.name));
-  //       context.setUserId(data.user._id);
-  //       context.setAuthToken(token);
-  //       context.setUser(data.user.name);
-  //       alert("Login Successfull");
-  //       nav("/home");
-  //     } else {
-  //       alert("Invalid Credentials");
-  //     }
-  //   };
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     login(email, password);
-  //   };
+  const context = useContext(GlobalContext);
+  const login = async (email, password) => {
+    if (email === "" || password === "") {
+      alert("Please Enter Valid Credentials");
+      return;
+    }
+    const response = await fetch("http://localhost:5000/api/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+    if (response.status === 200) {
+      const data = await response.json();
+      const token = data.token;
+      localStorage.setItem("authToken", JSON.stringify(token));
+      localStorage.setItem("user", JSON.stringify(data.user.name));
+      context.setUserId(data.user._id);
+      context.setAuthToken(token);
+      context.setUser(data.user.name);
+      console.log(token);
+      // console.log(data);
+      // alert("Login Successfull");
+      nav("/");
+    } else {
+      alert("Invalid Credentials");
+    }
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(email, password);
+  };
   return (
     <>
       <Header />
@@ -64,7 +66,7 @@ const Login = () => {
               <form
                 className="space-y-4 md:space-y-6"
                 action="#"
-                //  onSubmit={handleSubmit}
+                onSubmit={handleSubmit}
               >
                 <div>
                   <label

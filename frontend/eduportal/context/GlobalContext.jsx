@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import jwt_decode from "jwt-decode";
 const initialState = {
   user: null,
   user_id: null,
@@ -27,9 +28,9 @@ export function GlobalProvider({ children }) {
       ? JSON.parse(localStorage.getItem("user"))
       : null
   );
-  //Register User....
-  const signup = async (name, email, password) => {
-    if (name == "" || password === "" || email === "") {
+  const signup = async (name, email, password, role) => {
+    console.log("hello");
+    if ((name == "" || password === "" || email === "", role == "")) {
       alert("Please Enter all the fields");
       return;
     }
@@ -42,6 +43,7 @@ export function GlobalProvider({ children }) {
         name: name,
         email: email,
         password: password,
+        role: role,
       }),
     });
     if (response.status === 200) {
